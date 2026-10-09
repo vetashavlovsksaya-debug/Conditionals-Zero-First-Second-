@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 28 | Conditionals Exam Trainer</title>
+<style>
+  :root {color-scheme: light; --ink:#173451; --muted:#5d7187; --edge:#d5e6ef; --light:#eef8fc; --accent:#177eac; --accent2:#09658e; --good:#177b51; --bad:#b04449; --paper:#fff;--page:#f4f9fc}
+  * {box-sizing:border-box}
+  body{margin:0;color:var(--ink);background:linear-gradient(155deg,#f7fcff,#edf6fb);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+  .wrap{width:min(930px,calc(100% - 28px));margin:24px auto 42px}
+  .hero{background:radial-gradient(circle at 95% 0%,#d4effa,transparent 35%),white;border:1px solid #bcdeec;border-radius:22px;padding:24px 27px;margin-bottom:17px}
+  .eyebrow{font-size:12px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
+  h1{font-size:clamp(27px,4.7vw,43px);line-height:1.1;margin:7px 0 10px;letter-spacing:-.035em}
+  h2{font-size:24px;margin:0 0 12px}
+  p{margin:5px 0 0}
+  .sub{color:var(--muted);max-width:730px}
+  .mode{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:11px}
+  button{cursor:pointer;font:inherit}
+  .mode button,.btn{border-radius:12px;border:1px solid #bad9e7;background:#fff;color:var(--ink);padding:11px 16px;font-weight:750;transition:.15s}
+  .mode button.active{border-color:var(--accent);background:#e0f4fd;color:var(--accent2)}
+  button:hover:not(:disabled){filter:brightness(.96)}
+  button:focus-visible,input:focus-visible{outline:3px solid #67beda;outline-offset:2px}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .btn.main{background:var(--accent);border-color:var(--accent);color:white}
+  .guide{border:1px solid var(--edge);background:#eaf5fa;border-radius:13px;padding:13px 16px;color:var(--muted);font-size:14px;line-height:1.6}
+  .guide strong{color:var(--ink)}
+  .progress{display:flex;gap:13px;align-items:center;margin:15px 1px}
+  .progress-track{background:#d8e9f1;height:10px;border-radius:999px;overflow:hidden;flex:1}
+  #bar{height:100%;background:linear-gradient(90deg,#61b8d5,#187fae);width:0;transition:width .2s}
+  #counter{font-size:14px;white-space:nowrap;font-weight:850}
+  .card{border:1px solid var(--edge);background:#fff;border-radius:20px;padding:25px 27px;box-shadow:0 10px 36px rgba(38,99,132,.07)}
+  .cardtop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .pill{display:inline-block;border:1px solid #c6e4ef;background:#e8f6fb;border-radius:999px;color:#165d7c;font-weight:800;font-size:12px;letter-spacing:.02em;padding:6px 12px}
+  .hintsmall{color:var(--muted);font-size:13px}
+  .inst{font-size:14px;font-weight:750;color:var(--muted);margin-bottom:9px}
+  .prompt{font-size:clamp(19px,2.65vw,23px);font-weight:720;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:17px}
+  .choices{display:grid;gap:10px}
+  .choice{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:1px solid var(--edge);border-radius:13px;cursor:pointer;transition:.12s}
+  .choice:hover{border-color:#62b5d4;background:#f6fcff}
+  .choice:has(input:checked){background:#e7f7fc;border-color:var(--accent)}
+  .choice input{margin-top:4px;accent-color:var(--accent)}
+  .choice span{flex:1}
+  .typebox{width:100%;border:1px solid #bcd8e6;background:#fcfeff;border-radius:12px;padding:13px;font:inherit;color:var(--ink)}
+  .typecaption{font-size:13px;color:var(--muted);margin-top:8px}
+  .panel{margin-top:13px;padding:13px 15px;border:1px solid #b5dce9;background:#eff9fd;border-radius:12px;line-height:1.6}
+  .panel.good{background:#edf9f3;border-color:#b2dfcb;color:#176b47}
+  .panel.bad{background:#fff1f1;border-color:#edc0c2;color:#8e3538}
+  .panel strong{font-weight:850}
+  .actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:9px}
+  .actions .spacer{flex:1}
+  .hidden{display:none!important}
+  .resultScore{font-size:54px;font-weight:900;line-height:1.1;color:var(--accent2);margin:12px 0}
+  .tagline{color:var(--muted);font-size:14px}
+  .statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+  .stat{background:#f3f9fc;border:1px solid var(--edge);padding:12px;border-radius:12px;text-align:center}
+  .stat span{display:block;font-size:12px;color:var(--muted)}
+  .stat b{font-size:20px}
+  details{border:1px solid var(--edge);border-radius:12px;margin:9px 0;background:white;padding:13px 14px}
+  summary{font-weight:750;cursor:pointer;list-style-position:outside;overflow-wrap:anywhere}
+  .right{color:var(--good)}.wrong{color:var(--bad)}
+  .answerReview{font-size:14px;margin-top:9px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .reviewPoint{color:var(--muted)}
+  .footer{text-align:center;margin:20px 0;color:var(--muted);font-size:13px}
+  @media(max-width:630px){.wrap{width:calc(100% - 16px);margin-top:9px}.hero,.card{padding:18px}.mode{grid-template-columns:1fr}.actions .btn{flex:1}.statgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+ <header class="hero">
+  <div class="eyebrow">Destination B1 · Unit 28</div>
+  <h1>Conditionals: Zero · First · Second</h1>
+  <p class="sub">Practise facts and routines, real future possibilities, imaginary situations and useful advice. All questions are <strong>different</strong> from the Exam Practice worksheet.</p>
+ </header>
+ <nav class="mode" aria-label="Training modes">
+   <button id="practiceTab" class="active" type="button">Practice Mode · 24 tasks</button>
+   <button id="examTab" type="button">Exam Mode · 20 tasks</button>
+ </nav>
+ <div id="guide" class="guide" role="status"></div>
+ <div class="progress" aria-label="Question progress"><div class="progress-track"><div id="bar"></div></div><span id="counter">1 / 24</span></div>
+ <section id="questionCard" class="card" aria-live="polite">
+   <div class="cardtop"><span id="category" class="pill"></span><span id="questionNumber" class="hintsmall"></span></div>
+   <div id="instruction" class="inst"></div>
+   <div id="prompt" class="prompt"></div>
+   <div id="answers" class="choices"></div>
+   <div id="extra" class="typecaption hidden">Type only the missing words unless the instruction asks you to correct the whole sentence. Common contractions and listed natural alternatives are accepted.</div>
+   <div id="hint" class="panel hidden"></div>
+   <div id="feedback" class="panel hidden" role="status"></div>
+   <div class="actions">
+      <button id="back" type="button" class="btn hidden">← Previous</button>
+      <button id="hintBtn" type="button" class="btn">Hint</button>
+      <button id="skipBtn" type="button" class="btn">Show answer</button>
+      <span class="spacer"></span>
+      <button id="check" type="button" class="btn main">Check</button>
+      <button id="next" type="button" class="btn main hidden">Next →</button>
+   </div>
+ </section>
+ <section id="results" class="card hidden" aria-live="polite"></section>
+ <div class="footer">Learn · Practise · Progress &nbsp; | &nbsp; Works offline · Save as index.html to publish on GitHub Pages</div>
+</main>
+<script>
+(()=>{
+  'use strict';
+  // All questions in both modes are intentionally distinct from the source worksheet.
+  // q = stem, options = multiple choice, accepted = accepted open-ended responses.
+  const practice = [
+    {type:'mc',group:'Zero',label:'Grammar in context',task:'Choose the correct form.',q:'If my cat hears the food cupboard open, she usually ___ straight into the kitchen.',options:['will run','runs','would run'],correct:1,hint:'The word “usually” describes a habit.',explain:'Zero Conditional uses present simple for a usual result: If + present simple, present simple.'},
+    {type:'mc',group:'First',label:'Grammar in context',task:'Choose the correct form.',q:'If the museum ___ open on Monday, we’ll visit it after lunch.',options:['will be','were','is'],correct:2,hint:'The visit is a real plan for the future.',explain:'In a normal first conditional, the if-clause takes present simple even when the meaning is future.'},
+    {type:'mc',group:'Second',label:'Grammar in context',task:'Choose the correct form.',q:'If I ___ a drone, I’d film our football matches from above.',options:['had','will have','have'],correct:0,hint:'This is an imaginary situation, not a plan.',explain:'Second Conditional: If + past simple, would + base verb.'},
+    {type:'mc',group:'Zero',label:'Grammar in context',task:'Choose the correct form.',q:'If students ___ their passwords, the website automatically sends a reset link.',options:['forgot','forget','will forget'],correct:1,hint:'The sentence explains what the system normally does.',explain:'A routine/automatic response uses Zero Conditional.'},
+    {type:'mc',group:'First',label:'Grammar in context',task:'Choose the correct form.',q:'If Noah wins the chess tournament tomorrow, he ___ a medal.',options:['would get','gets yesterday','will get'],correct:2,hint:'The tournament is tomorrow; the result is possible.',explain:'First Conditional: If + present simple, will + infinitive.'},
+    {type:'mc',group:'Second',label:'Grammar in context',task:'Choose the correct form.',q:'If we ___ in a bigger city, we’d have more choices of clubs.',options:['lived','will live','live'],correct:0,hint:'Imagine a different place to live.',explain:'“Lived” refers to an imagined present situation, not past time.'},
+    {type:'text',group:'Zero',label:'Complete the sentence',task:'Complete with the correct form of OPEN.',q:'If you double-click this file, it usually __________ on my computer.',accepted:['opens'],shown:'opens',hint:'The file behaves this way regularly.',explain:'Zero Conditional: opens is the present simple, third-person singular form.'},
+    {type:'text',group:'First',label:'Complete the sentence',task:'Complete with the correct form of NOT FEEL.',q:'If Aunt Lily __________ better tomorrow, she won’t go to work.',accepted:["doesn't feel",'does not feel'],shown:"doesn’t feel",hint:'Use present simple negative after if.',explain:'We do not usually use “will not” in this if-clause.'},
+    {type:'text',group:'Second',label:'Complete the sentence',task:'Complete with the correct form of KNOW.',q:'If I __________ how to code, I’d create my own game.',accepted:['knew'],shown:'knew',hint:'Would + create signals Second Conditional.',explain:'Imaginary knowledge now → If I knew…, I’d create…'},
+    {type:'text',group:'Zero',label:'Complete the sentence',task:'Complete with the correct form of NOT SAVE.',q:'If you __________ your work, you sometimes lose it.',accepted:["don't save",'do not save'],shown:"don’t save",hint:'What generally happens when work is not saved?',explain:'An ordinary consequence uses present simple in both clauses.'},
+    {type:'text',group:'First',label:'Imperative in conditionals',task:'Complete with the base form of ASK.',q:'If your ticket doesn’t scan at the gate, __________ an employee for help.',accepted:['ask'],shown:'ask',hint:'This is an instruction, not a prediction.',explain:'The result of a First Conditional can be an imperative: If + present simple, ask…'},
+    {type:'text',group:'First',label:'Modals in conditionals',task:'Complete with CAN and PLAY.',q:'If the weather improves later, we __________ tennis outside.',accepted:['can play'],shown:'can play',hint:'Not all first conditional results need will.',explain:'Can and may can appear in the main clause: If the weather improves, we can play.'},
+    {type:'mc',group:'Second',label:'Advice',task:'Choose the correct form.',q:'If I ___ you, I’d speak to the coach before making a decision.',options:['am','were','will be'],correct:1,hint:'Remember the fixed phrase used to give advice.',explain:'The standard expression is “If I were you, I’d…”.'},
+    {type:'text',group:'Second',label:'Complete the sentence',task:'Complete using WOULD and TURN.',q:'If we had an extra room, we __________ it into a music studio.',accepted:["would turn","'d turn",'would turn'],shown:'would turn',hint:'The result belongs to an imaginary situation.',explain:'Would + base form expresses the imagined result.'},
+    {type:'text',group:'First',label:'Translation fragment',task:'Translate only the fragment in brackets.',q:'Nora will apply for the summer course (jeśli zda egzamin) __________.',accepted:['if she passes the exam'],shown:'if she passes the exam',hint:'This is a real future possibility; “she” refers to Nora.',explain:'After if, use present simple: if she passes the exam.'},
+    {type:'text',group:'Second',label:'Translation fragment',task:'Translate only the fragment in brackets.',q:'(Gdybym znał odpowiedź) __________, I’d raise my hand.',accepted:['if i knew the answer'],shown:'If I knew the answer',hint:'An imaginary present situation uses past simple.',explain:'The past simple form “knew” does not describe past time here.'},
+    {type:'text',group:'Zero',label:'Sentence transformation',task:'Keep the meaning. Complete the missing words.',q:'I always get a headache when I skip lunch.\nIf I skip lunch, I __________.',accepted:['get a headache'],shown:'get a headache',hint:'The second sentence describes the same repeated pattern.',explain:'Zero Conditional can express something that happens regularly.'},
+    {type:'text',group:'First',label:'Sentence transformation',task:'Keep the meaning. Complete the missing words.',q:'Take a screenshot now or you’ll forget the instructions.\nIf you __________, you’ll forget the instructions.',accepted:["don't take a screenshot now",'do not take a screenshot now',"don't take a screenshot" ,'do not take a screenshot'],shown:"don’t take a screenshot now",hint:'Turn “do this or…” into “if you don’t…”.',explain:'If you don’t take a screenshot, you’ll forget the instructions.'},
+    {type:'text',group:'Second',label:'Sentence transformation',task:'Keep the meaning. Complete the missing words.',q:'I don’t own a guitar, so I can’t join the school band.\nIf I __________, I could join the school band.',accepted:['owned a guitar','had a guitar'],shown:'owned a guitar / had a guitar',hint:'Imagine having an instrument you do not currently own.',explain:'Use the past form for an unreal present condition.'},
+    {type:'mc',group:'Second',label:'Language functions',task:'Choose the most helpful response.',q:'— I don’t know whether I should apologise to Lea for that joke.\n— ___',options:['If she apologised first, I will answer.','If I were you, I’d tell her I’m sorry.','If friends apologise, they were happier.'],correct:1,hint:'The friend is asking for advice.',explain:'“If I were you…” is a polite way to offer advice.'},
+    {type:'mc',group:'First',label:'Language functions',task:'Choose the most suitable response.',q:'— What will happen if the coach cancels Friday’s practice?\n— ___',options:["We'll train on Saturday instead.","If we trained yesterday, it would be fine.","Practice usually starts at five."],correct:0,hint:'The speaker wants to know the alternative plan.',explain:'A question about a real possible cancellation needs a practical future response.'},
+    {type:'text',group:'First',label:'Error correction',task:'Correct the WHOLE sentence.',q:'If Kai will text me tonight, I’ll send him the address.',accepted:["if kai texts me tonight, i'll send him the address",'if kai texts me tonight, i will send him the address'],shown:"If Kai texts me tonight, I’ll send him the address.",hint:'Do not usually use will immediately after if in First Conditional.',explain:'Present simple in the condition; will in the result.'},
+    {type:'text',group:'Second',label:'Error correction',task:'Correct the WHOLE sentence.',q:'If my bike had a basket, I will carry my books in it.',accepted:['if my bike had a basket, i would carry my books in it',"if my bike had a basket, i'd carry my books in it"],shown:'If my bike had a basket, I would carry my books in it.',hint:'The if-clause is already Second Conditional.',explain:'The imagined result takes would + base verb.'},
+    {type:'mc',group:'First',label:'Exam reading',task:'Read the announcement and choose the correct statement.',q:'“If at least ten people register by Thursday, the workshop will run on Saturday.”\nEight people have registered so far. What do we know?',options:['The workshop has definitely been cancelled.','The workshop is definitely happening.','Two more registrations would meet the minimum.'],correct:2,hint:'Compare the minimum number with the current number.',explain:'Ten are needed; eight have registered, so two more would meet the requirement.'}
+  ];
+  const exam = [
+    {type:'mc',group:'Zero',label:'Grammar in context',task:'Choose the correct answer.',q:'If my tablet gets too hot, it automatically ___ itself off.',options:['turns','will turn','would turn'],correct:0,explain:'An automatic normal reaction takes Zero Conditional.'},
+    {type:'mc',group:'First',label:'Grammar in context',task:'Choose the correct answer.',q:'If Priya ___ the audition next Tuesday, she may join the band.',options:['will pass','passed','passes'],correct:2,explain:'If + present simple; the result may use a modal such as may.'},
+    {type:'mc',group:'Second',label:'Grammar in context',task:'Choose the correct answer.',q:'If I ___ an electric scooter, I wouldn’t need the bus.',options:['will own','owned','own'],correct:1,explain:'Second Conditional imagines a different present situation.'},
+    {type:'mc',group:'First',label:'Imperative in conditionals',task:'Choose the correct answer.',q:'If you finish your poster before lunch, ___ it to me.',options:['send','will send','would send'],correct:0,explain:'The main clause can give an instruction using an imperative.'},
+    {type:'mc',group:'Zero',label:'Grammar in context',task:'Choose the correct answer.',q:'If you ___ the blue icon, the application usually opens a new window.',options:['clicked','will click','click'],correct:2,explain:'A routine software behaviour can be expressed with Zero Conditional.'},
+    {type:'mc',group:'Second',label:'Grammar in context',task:'Choose the correct answer.',q:'If our town had a cinema, we ___ go there more often.',options:['would','will','can'],correct:0,explain:'Would expresses an imagined result.'},
+    {type:'mc',group:'First',label:'Meaning in context',task:'Read the sentence. What does it mean?',q:'“If the train is delayed, we might miss the beginning of the show.”',options:['The train is always delayed.','The speaker considers a possible future problem.','The train was delayed yesterday.'],correct:1,explain:'The condition is a real future possibility; might expresses uncertainty.'},
+    {type:'mc',group:'Second',label:'Language functions',task:'Choose the best response.',q:'— My little brother keeps borrowing my things without asking.\n— ___',options:['If he borrows things, he was polite.','If you took my things, I will tell him.','If I were you, I’d explain why that bothers me.'],correct:2,explain:'If I were you… is a standard structure for advice.'},
+    {type:'text',group:'Zero',label:'Verb form',task:'Complete with NOT WATER.',q:'If you __________ this plant regularly, its leaves turn brown.',accepted:["don't water",'do not water'],shown:"don’t water",explain:'The sentence describes a general consequence.'},
+    {type:'text',group:'First',label:'Verb form',task:'Complete with REMEMBER.',q:'If Eva __________ to bring the camera, we can take group photos.',accepted:['remembers'],shown:'remembers',explain:'Present simple after if; can in the result.'},
+    {type:'text',group:'Second',label:'Verb form',task:'Complete with LIVE.',q:'If we __________ closer to the mountains, we’d go hiking every weekend.',accepted:['lived'],shown:'lived',explain:'This imagines a different place to live.'},
+    {type:'text',group:'Second',label:'Verb form',task:'Complete with WOULD and TELL.',q:'If I knew the answer, I __________ you.',accepted:['would tell',"'d tell"],shown:'would tell',explain:'Second Conditional result: would + base verb.'},
+    {type:'text',group:'First',label:'Translation fragment',task:'Translate only the fragment in brackets.',q:'We’ll go to the concert (jeśli nasi rodzice się zgodzą) __________.',accepted:['if our parents agree','if our parents say yes','if our parents allow us','if our parents give us permission'],shown:'if our parents agree',explain:'Use present simple in the condition; the Polish phrase means “if our parents agree”.'},
+    {type:'text',group:'Second',label:'Translation fragment',task:'Translate only the fragment in brackets.',q:'(Gdybym był na twoim miejscu) __________, I’d ask for help.',accepted:['if i were you'],shown:'If I were you',explain:'The standard advice formula is “If I were you…”.'},
+    {type:'text',group:'Zero',label:'Sentence transformation',task:'Keep the meaning. Complete the missing words.',q:'The pool closes when temperatures fall below zero.\nIf temperatures fall below zero, the pool __________.',accepted:['closes'],shown:'closes',explain:'General operating rules use Zero Conditional.'},
+    {type:'text',group:'Second',label:'Sentence transformation',task:'Keep the meaning. Complete the missing words.',q:'I don’t speak Japanese, so I can’t understand that interview.\nIf I spoke Japanese, I __________ that interview.',accepted:['could understand','would understand','would be able to understand'],shown:'could understand / would understand',explain:'An imaginary ability is expressed with could or would be able to.'},
+    {type:'text',group:'First',label:'Error correction',task:'Correct the WHOLE sentence.',q:'If we will order today, we’ll get free delivery.',accepted:["if we order today, we'll get free delivery",'if we order today, we will get free delivery'],shown:"If we order today, we’ll get free delivery.",explain:'Use present simple in the if-clause.'},
+    {type:'mc',group:'Zero',label:'Exam reading',task:'Read the notice and choose the correct answer.',q:'A café notice says: “If you bring your own reusable cup, every hot drink costs 50p less.”\nWhat happens when a customer brings their own cup?',options:['They get 50p off a hot drink.','They get a free hot drink.','They pay an extra 50p.'],correct:0,explain:'The notice describes the café’s normal discount policy.'},
+    {type:'text',group:'Second',label:'Error correction',task:'Correct the WHOLE sentence.',q:'If I can play the drums, I would join the band.',accepted:['if i could play the drums, i would join the band',"if i could play the drums, i'd join the band"],shown:'If I could play the drums, I would join the band.',explain:'For an imaginary present ability, could is appropriate.'},
+    {type:'mc',group:'First',label:'Grammar in context',task:'Choose the correct answer.',q:'If you ___ enough time after class, you can help me decorate the room.',options:['would have','will have','have'],correct:2,explain:'Present simple after if; can in the main clause.'}
+  ];
+
+  const el=id=>document.getElementById(id);
+  const norm=v=>String(v??'').toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[.,!?;:]+$/,'').trim().replace(/\s+/g,' ');
+  const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const bank=()=>mode==='practice'?practice:exam;
+  let mode='practice',index=0,practiceScore=0,done=false;
+  let attempts=[],currentChecked=false;
+
+  function chooseMode(m){
+    mode=m;index=0;practiceScore=0;done=false;currentChecked=false;
+    attempts=new Array(bank().length).fill(null);
+    el('practiceTab').classList.toggle('active',mode==='practice');
+    el('examTab').classList.toggle('active',mode==='exam');
+    el('guide').innerHTML=mode==='practice'
+      ?'<strong>Practice Mode:</strong> 24 new questions. Use hints, check instantly, and read explanations. Each question gives 1 point; “Show answer” counts as practice but not as a correct answer.'
+      :'<strong>Exam Mode:</strong> 20 different questions. No hints or immediate feedback. You can return to earlier questions; scoring and corrections appear only after submission.';
+    el('questionCard').classList.remove('hidden');el('results').classList.add('hidden');
+    render();
+  }
+  function currentAnswer(q){
+    if(q.type==='mc'){let s=document.querySelector('input[name="answer"]:checked');return s?Number(s.value):null;}
+    return el('typed')?.value??'';
+  }
+  function filled(q,a){return q.type==='mc'?a!==null:String(a).trim().length>0}
+  function correct(q,a){return q.type==='mc'?a===q.correct:q.accepted.some(x=>norm(x)===norm(a))}
+  function displayAnswer(q){return q.type==='mc'?q.options[q.correct]:q.shown}
+  function render(){
+    let arr=bank(),q=arr[index];currentChecked=false;
+    el('bar').style.width=(100*index/arr.length)+'%';
+    el('counter').textContent=(index+1)+' / '+arr.length;
+    el('category').textContent=q.label;
+    el('questionNumber').textContent=q.group+' Conditional · 1 point';
+    el('instruction').textContent=q.task;
+    el('prompt').textContent=q.q;
+    el('hint').className='panel hidden';el('feedback').className='panel hidden';
+    el('hint').textContent='';el('feedback').textContent='';
+    el('answers').replaceChildren();
+    const saved=attempts[index];
+    if(q.type==='mc'){
+      q.options.forEach((o,i)=>{
+        const lbl=document.createElement('label');lbl.className='choice';
+        const input=document.createElement('input');input.type='radio';input.name='answer';input.value=String(i);input.checked=saved?.answer===i;
+        const span=document.createElement('span');span.textContent=String.fromCharCode(65+i)+'. '+o;
+        lbl.append(input,span);el('answers').append(lbl);
+      });
+      el('extra').classList.add('hidden');
+    } else {
+      const input=document.createElement('input');input.type='text';input.className='typebox';input.id='typed';input.autocomplete='off';
+      input.spellcheck=false;input.placeholder='Type your answer…';input.value=saved?.answer??'';
+      input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!done)el('check').click()}});
+      el('answers').appendChild(input);el('extra').classList.remove('hidden');
+    }
+    el('back').classList.toggle('hidden',mode!=='exam'||index===0);
+    el('hintBtn').classList.toggle('hidden',mode==='exam');
+    el('skipBtn').classList.toggle('hidden',mode==='exam');
+    el('next').classList.add('hidden');el('check').classList.remove('hidden');
+    el('check').textContent=mode==='practice'?'Check answer':index===arr.length-1?'Submit exam':'Save & next →';
+  }
+  function practiceFeedback(force=false){
+    if(currentChecked)return;
+    let q=bank()[index],answer=currentAnswer(q);
+    if(!filled(q,answer)&&!force){el('feedback').className='panel';el('feedback').textContent='Choose or type an answer first.';return;}
+    const ok=!force&&correct(q,answer);currentChecked=true;
+    attempts[index]={answer,ok};if(ok)practiceScore++;
+    el('feedback').className='panel '+(ok?'good':'bad');
+    el('feedback').innerHTML= (ok?'<strong>✓ Correct!</strong>':force?'<strong>Answer revealed.</strong>':'<strong>Not quite.</strong>')
+       +'<div style="margin-top:6px">'+(!ok?'<strong>Expected:</strong> '+esc(displayAnswer(q))+'<br>':'')+esc(q.explain)+'</div>';
+    el('answers').querySelectorAll('input').forEach(x=>x.disabled=true);
+    el('check').classList.add('hidden');el('hintBtn').classList.add('hidden');el('skipBtn').classList.add('hidden');
+    el('next').classList.remove('hidden');el('next').textContent=index===practice.length-1?'Finish practice':'Next →';
+  }
+  function saveExam(move){
+    let q=bank()[index],ans=currentAnswer(q);
+    attempts[index]={answer:ans,ok:filled(q,ans)&&correct(q,ans)};
+    if(move){if(index<bank().length-1){index++;render()}else submitExam();}
+  }
+  function endPractice(){done=true;showResults(practiceScore,practice);}
+  function submitExam(){
+    const missing=attempts.filter((x,i)=>!x||!filled(exam[i],x.answer)).length;
+    if(missing&& !confirm('You have '+missing+' unanswered question(s). Submit anyway?')){return;}
+    done=true;let score=0;exam.forEach((q,i)=>{if(attempts[i]?.ok)score++});showResults(score,exam);
+  }
+  function showResults(score,arr){
+    el('bar').style.width='100%';el('counter').textContent=arr.length+' / '+arr.length;
+    el('questionCard').classList.add('hidden');el('results').classList.remove('hidden');
+    const pct=Math.round(score/arr.length*100);
+    let verdict=pct>=90?'Excellent!':pct>=75?'Strong progress.':pct>=55?'Good start—review the tricky forms.':'Keep practising—you can improve quickly.';
+    let html='<h2>'+esc(mode==='practice'?'Practice complete':'Exam result')+'</h2><div class="resultScore">'+score+' / '+arr.length+'</div><p>'+pct+'% · '+verdict+'</p>';
+    html+='<div class="statgrid">';
+    for(let g of ['Zero','First','Second']){
+      const items=arr.map((q,i)=>({q,i})).filter(x=>x.q.group===g);
+      const got=items.filter(x=>attempts[x.i]?.ok).length;
+      html+='<div class="stat"><span>'+g+' Conditional</span><b>'+got+' / '+items.length+'</b></div>';
+    }
+    html+='</div><p class="tagline">Review each answer below. Typed answers are checked against several expected variants where appropriate. Other genuinely equivalent answers can be reviewed with your teacher.</p><h2 style="margin-top:24px;font-size:20px">Answer review</h2>';
+    arr.forEach((q,i)=>{
+      const a=attempts[i],ok=!!a?.ok;
+      const entered=a&&filled(q,a.answer)?(q.type==='mc'?q.options[a.answer]:String(a.answer)):'— no answer —';
+      html+='<details><summary><span class="'+(ok?'right':'wrong')+'">'+(ok?'✓':'✕')+'</span> '+(i+1)+'. '+esc(q.label)+'</summary>'+
+        '<div class="answerReview"><strong>Question:</strong> '+esc(q.q)+'<br><strong>Your answer:</strong> '+esc(entered)+'<br><strong>Expected answer:</strong> '+esc(displayAnswer(q))+'<br><span class="reviewPoint">'+esc(q.explain)+'</span></div></details>';
+    });
+    html+='<div class="actions"><button class="btn main" type="button" id="retry">Try again</button><button class="btn" type="button" id="switch">'+(mode==='practice'?'Try Exam Mode':'Return to Practice Mode')+'</button></div>';
+    el('results').innerHTML=html;
+    el('retry').addEventListener('click',()=>chooseMode(mode));
+    el('switch').addEventListener('click',()=>chooseMode(mode==='practice'?'exam':'practice'));
+  }
+  el('practiceTab').addEventListener('click',()=>chooseMode('practice'));
+  el('examTab').addEventListener('click',()=>chooseMode('exam'));
+  el('hintBtn').addEventListener('click',()=>{let q=bank()[index];el('hint').className='panel';el('hint').textContent='Hint: '+q.hint;});
+  el('skipBtn').addEventListener('click',()=>practiceFeedback(true));
+  el('check').addEventListener('click',()=>{if(mode==='practice')practiceFeedback(false);else saveExam(true)});
+  el('next').addEventListener('click',()=>{if(index===practice.length-1)endPractice();else{index++;render()}});
+  el('back').addEventListener('click',()=>{if(mode==='exam'&&index>0){saveExam(false);index--;render()}});
+  chooseMode('practice');
+})();
+</script>
+</body>
+</html>
